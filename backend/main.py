@@ -1,35 +1,27 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
+from fastapi import FastAPI, Header
+from typing import Annotated
 
 
-class Item(BaseModel):
-    id: int
-    name: str
-    price: int
-    description: str | None = None
+
+# class Item(BaseModel):
+#     id: int
+#     name: str
+#     price: int
+#     description: str | None = None
 
 items = []
 
 app = FastAPI()
 
-users = []
+@app.get('/items/')
+def user_agent(
+    user_agent: Annotated[str | None, Header()] = None, host: Annotated[str | None, Header()] = None,
+    accept: Annotated[str | None, Header()] = None
+    ):
+    return {"User-Agent": user_agent, "host": host, "accept": accept}
 
-@app.get("/items/")
-async def get_items():
-    if len(items) == 0:
-        return "Your list is currently empty!"
+
+
+
     
-    return items
-
-@app.post("/items/")
-async def create_item(item: Item):
-    for existing_item in items:
-        if (existing_item.id == item.id):
-            return {
-                "message": "The item is currently stored!"
-            }
-    items.append(item)
-    return {
-        "message": "Succesfully added an Item",
-        "item": item
-    }
+            
