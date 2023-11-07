@@ -9,7 +9,7 @@ class User(Base):
     email = Column(String, unique=True, index=True)
     hashed_password = Column(String)
 
-    items = relationship("items", back_populates="owner")
+    items = relationship("Items", back_populates="owner")
 
 class Items(Base):
     __tablename__ = "items"
@@ -18,6 +18,6 @@ class Items(Base):
     description = Column(String, index=True)
     owner_id = Column(Integer, ForeignKey("users.id"))
 
-    owner = relationship("users", back_populates="items")
+    owner = relationship("User", back_populates="items")
 
 
