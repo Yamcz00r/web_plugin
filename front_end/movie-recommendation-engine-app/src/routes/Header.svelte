@@ -25,15 +25,15 @@
 
 
 <AppBar gridColumns="grid-cols-3" slotDefault="place-self-center" slotTrail="place-content-end">
-    <svelte:fragment slot="lead"><button on:click={() => openDrawer()} type="button" class="btn variant-ghost w-1/5">menu</button></svelte:fragment>
+    <svelte:fragment slot="lead"><button on:click={() => openDrawer()} type="button" class="btn variant-ghost w-24 lg:w-1/3">Menu</button></svelte:fragment>
     <h1 class="h1">
         <span class="bg-gradient-to-br from-blue-500 to-cyan-300 bg-clip-text text-transparent box-decoration-clone">Title</span>
     </h1>
     <svelte:fragment slot="trail">
         {#if $page.url.pathname === "/"  }
-        <a href="/auth/signin" type="button" class="btn variant-ghost w-1/5">Sign In</a>
+        <a href="/auth/signin" type="button" class="btn variant-ghost w-24 lg:w-1/3">Sign In</a>
         {:else if $page.url.pathname === "/auth/login" || $page.url.pathname === "/auth/signin"}
-            <a href="/" type="button" class="btn variant-ghost w-1/5">Home</a>
+            <a href="/" type="button" class="btn variant-ghost w-24 lg:w-1/3">Home</a>
         {/if}
     </svelte:fragment>
 </AppBar>
