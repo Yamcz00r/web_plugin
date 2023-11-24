@@ -1,13 +1,22 @@
-version: '3.7'
+version: '3'
 
 services:
-  backend: 
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: secret
+
+  fastapi:
     build: ./backend
-    command: uvicorn backend.main:app --reload --host=0.0.0.0 --port=8000
-    ports: 
-      - 8000:8000
+    ports:
+      - "8000:8000"
+    depends_on: 
+      - postgres
+    command: "uvicorn backend.main:app --reload --port=8000  --host=0.0.0.0"
+    environment:
+      DB_URL: postgres://root:secret@postgres:5432/mydatabase
     volumes:
       - .:/app
-
-
-
