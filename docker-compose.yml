@@ -6,8 +6,8 @@ services:
     restart: always
     environment:
       POSTGRES_DB: mydatabase
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: ${POSTGRES_USER:-root}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
     ports:
       - "5432:5432"
 
@@ -18,7 +18,7 @@ services:
     depends_on: 
       - postgres
     command: "uvicorn backend.main:app --reload --port=8000  --host=0.0.0.0"
-    environment:
-      DB_URL: postgres://root:secret@postgres:5432/mydatabase
     volumes:
       - .:/app
+    env_file:
+      - .env
