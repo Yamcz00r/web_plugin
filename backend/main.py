@@ -1,12 +1,15 @@
-from fastapi import FastAPI
-import os
+from utils.database_utils import get_db
+from fastapi import FastAPI, Depends, HTTPException
+from sqlalchemy.orm import Session
+import models.user_model as user_model
+import schemas.user_schema as user_schema
+from user_service import create_user
 
 app = FastAPI()
 
 
-db_url = os.getenv("DB_CONNECTION_URL")
 
-@app.get("/")
-
-def read_root():
-    return {"db_url": db_url}
+@app.post("/create_user/")
+def create_user_endpoint(user: user_schema.UserCreate, db: Session = Depends(get_db)):
+    created_user = create_user(db, user)
+    return {"message": "User created successfully", "user_id": created_user.id}

@@ -12,7 +12,7 @@ services:
       - "5432:5432"
 
   fastapi:
-    build: ./backend
+    build: .
     ports:
       - "8000:8000"
     depends_on: 
