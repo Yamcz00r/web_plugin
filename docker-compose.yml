@@ -6,9 +6,9 @@ services:
     restart: always
     environment:
       POSTGRES_DB: mydatabase
-      POSTGRES_USER: ${POSTGRES_USER:-root}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
-      PYTHONPATH: backend
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_CONNECTION_URL: ${DB_CONNECTION_URL}
     ports:
       - "5432:5432"
 
@@ -17,10 +17,10 @@ services:
       context: backend
     ports:
       - "8000:8000"
-    depends_on: 
+    depends_on:
       - postgres
-    command: "uvicorn backend.main:app --reload --port=8000  --host=0.0.0.0"
+    command: "uvicorn main:app --reload --port=8000 --host=0.0.0.0"
     volumes:
-      - .:/app
+      - ./backend:/app
     env_file:
       - .env

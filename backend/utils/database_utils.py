@@ -1,17 +1,10 @@
 import os
 from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import DeclarativeMeta, declarative_base
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
 
-RUNNING_INSIDE_GITHUB_ACTIONS = os.getenv("RUNNING_INSIDE_GITHUB_ACTIONS", False)
+engine = create_engine(os.environ["DB_CONNECTION_URL"])
 
-if not RUNNING_INSIDE_GITHUB_ACTIONS:
-    engine = create_engine(os.environ["DB_CONNECTION_URL"])
-else:
-    engine = create_engine(
-        os.environ["DB_CONNECTION_URL"],
-        connect_args={"check_same_thread": False}
-    )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

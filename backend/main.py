@@ -1,3 +1,4 @@
+from fastapi import FastAPI
 from utils.database_utils import get_db
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
@@ -7,7 +8,9 @@ from services.user_service import create_user
 
 app = FastAPI()
 
-
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
 
 @app.post("/create_user/")
 def create_user_endpoint(user: user_schema.UserCreate, db: Session = Depends(get_db)):
