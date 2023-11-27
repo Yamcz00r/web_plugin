@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Secure Comment",
+  "version": "0.1.0",
+  "description": "My Chrome Extension",
+  "action": {
+    "default_title": "Secure Comment",
+    "default_popup": "index.html"
+  },
+  "permissions": [
+    "storage"
+  ]
+}
