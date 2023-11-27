@@ -1,0 +1,7 @@
+__pycache__/
+alembic/__pycache__/
+alembic/versions/__pycache__/
+.vscode/
+.pytest_cache/
+.coverage
+sql_app.db

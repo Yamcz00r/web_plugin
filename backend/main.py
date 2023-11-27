@@ -3,7 +3,7 @@ from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 import models.user_model as user_model
 import schemas.user_schema as user_schema
-from user_service import create_user
+from services.user_service import create_user
 
 app = FastAPI()
 
