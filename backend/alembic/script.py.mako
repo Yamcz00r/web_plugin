@@ -1,27 +1,43 @@
+<%
+    import time
+    import uuid
+    from alembic import op
+    from sqlalchemy import String, Column
+
+    # Set your model and table name here
+    model = 'users'
+    table = 'users'
+    # Generate short UUID
+    short_uuid = str(uuid.uuid4())[:8]
+%>
 """create_users_table
 
-Revision ID: 877c5db4bbfb
+Revision ID: ${short_uuid}
 Revises: 
-Create Date: 2023-11-23 12:34:56.789012
+Create Date: ${time.strftime('%Y-%m-%d %H:%M:%S')}
 
 """
+
 from alembic import op
 import sqlalchemy as sa
 
-revision = '877c5db4bbfb'
+
+# revision identifiers, used by Alembic.
+revision = '${short_uuid}'
 down_revision = None
 branch_labels = None
 depends_on = None
 
+
 def upgrade():
     op.create_table(
-        'users',
+        '${table}',
         sa.Column('id', sa.Integer, primary_key=True),
-        sa.Column('username', sa.String(50), nullable=False),
-        sa.Column('password', sa.String(255), nullable=False),
+        sa.Column('user_name', sa.String(50), nullable=False),
         sa.Column('email', sa.String(255), nullable=False),
+        sa.Column('hashed_password', sa.String(255), nullable=False),
     )
 
+
 def downgrade():
-    op.drop_table('users')
-    # Dodaj inne instrukcje SQL degradacji, jeśli są potrzebne
+    op.drop_table('${table}')
