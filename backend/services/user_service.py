@@ -2,6 +2,7 @@ import models.user_model as user_model
 import schemas.user_schema as user_schema
 from sqlalchemy.orm import Session
 from passlib.hash import bcrypt
+from fastapi import HTTPException
 
 def create_user(db: Session, user: user_schema.UserCreate):
     hashed_password = bcrypt.hash(user.password)
@@ -15,3 +16,19 @@ def create_user(db: Session, user: user_schema.UserCreate):
     db.refresh(db_user)
     
     return db_user
+
+def get_user_by_id(db:Session, user_id: int) -> user_model.User:
+    return db.query(user_model.User).filter(user_model.User.id == user_id).scalar()
+
+def get_user_by_emial(db:Session, user_email: str) -> user_model.User:
+    return db.query(user_model.User).filter(user_model.User.email == user_email).scalar()
+
+def delete_user(db:Session, user_id: int) -> user_model.User:
+    user = db.query(user_model.User).filter(user_model.User.id == user_id).first()
+    if user:
+        db.delete(user)
+        db.commit()
+    else:
+         raise HTTPException(
+            status_code=400, detail=f"user not found"
+         )
