@@ -1,9 +1,9 @@
 
 """create_users_table
 
-Revision ID: 40b49780
+Revision ID: 15dfd515
 Revises: 
-Create Date: 2023-11-28 22:13:53
+Create Date: 2023-12-08 15:01:39
 
 """
 
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '40b49780'
+revision = '15dfd515'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -24,7 +24,7 @@ def upgrade():
         sa.Column('id', sa.Integer, primary_key=True),
         sa.Column('user_name', sa.String(50), nullable=False),
         sa.Column('email', sa.String(255), nullable=False),
-        sa.Column('hashed_password', sa.String(255), nullable=False),
+        sa.Column('hashed_password', sa.String(255), nullable=False)
     )
 
 

@@ -20,7 +20,7 @@ def create_user(db: Session, user: user_schema.UserCreate):
 def get_user_by_id(db:Session, user_id: int) -> user_model.User:
     return db.query(user_model.User).filter(user_model.User.id == user_id).scalar()
 
-def get_user_by_emial(db:Session, user_email: str) -> user_model.User:
+def get_user_by_email(db:Session, user_email: str) -> user_model.User:
     return db.query(user_model.User).filter(user_model.User.email == user_email).scalar()
 
 def delete_user(db:Session, user_id: int) -> user_model.User:
