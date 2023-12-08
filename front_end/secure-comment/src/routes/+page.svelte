@@ -1,11 +1,11 @@
 <script lang="ts">
     import { extractHtml } from './utils/dataExtractor';
 
-    let x:string = 'protected';
+    let x:string|unknown = 'protected';
 
     async function handleExtractHtml() {
-        x = "test";
         x = await extractHtml();
+        console.log(x)
     }
 
 </script>
