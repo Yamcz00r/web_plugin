@@ -20,10 +20,13 @@ depends_on: Union[str, Sequence[str], None] = None
 
 def upgrade() -> None:
     op.create_table(
-        "users",
-        sa.Column()
-                    )
+"users",
+sa.Column('id', sa.Integer, primary_key=True, index=True),
+         sa.Column('user_name', sa.String, index=True),
+         sa.Column('email', sa.String, index=True, unique=True),
+         sa.Column('hashed_password', sa.String)
+    )
 
 
 def downgrade() -> None:
-    pass
+    op.drop_table('users')

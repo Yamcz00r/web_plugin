@@ -4,7 +4,6 @@ from utils.database_utils import get_db
 from services.user_service import create_user, get_user_by_email, delete_user
 import schemas.user_schema as user_schema
 import os
-from utils.database_utils import Base, engine
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -19,11 +18,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-Base.metadata.create_all(bind=engine)
 
 @app.get("/")
 def read_root():
     return {"Hello": os.environ.get("DB_CONNECTION_URL")}
+
 
 @app.post("/users/create_user/")
 def create_user_endpoint(user_data: user_schema.UserCreate, db: Session = Depends(get_db)):
