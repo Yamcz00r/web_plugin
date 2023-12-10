@@ -5,10 +5,9 @@ services:
     image: postgres:13
     restart: always
     environment:
-      POSTGRES_DB: mydatabase
+      POSTGRES_DB: backend
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      DB_CONNECTION_URL: ${DB_CONNECTION_URL}
     ports:
       - "5432:5432"
 
