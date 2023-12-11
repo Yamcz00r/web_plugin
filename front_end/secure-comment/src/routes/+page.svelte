@@ -1,14 +1,7 @@
 <script lang="ts">
-    import { extractHtml } from './utils/dataExtractor';
-
-    let x:string|unknown = 'protected';
-
-    async function handleExtractHtml() {
-        x = await extractHtml();
-        console.log(x)
-    }
-
+    import {handleExtractHtml} from './utils/dataScraper.svelte';
+    import {data} from './store.js'
 </script>
 
 <button on:click={()=>{handleExtractHtml()}} type="button" class="btn variant-filled">Button</button>
-<h4 class="h4">{x}</h4>
+<h4 class="h4">{ $data }</h4>

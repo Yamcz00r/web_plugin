@@ -7,5 +7,9 @@
     "default_title": "Secure Comment",
     "default_popup": "index.html"
   },
-  "permissions": ["activeTab", "nativeMessaging", "scripting"]
+  "permissions": [
+    "activeTab",
+    "nativeMessaging",
+    "scripting"
+  ]
 }
