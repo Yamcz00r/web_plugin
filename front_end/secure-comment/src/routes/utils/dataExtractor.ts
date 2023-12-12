@@ -1,8 +1,7 @@
 export async function extractHtml() {
     return new Promise((resolve) => {
         chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-           let comments = request.comments;
-            console.log(comments)
+            let comments = request.comments;
             resolve(comments);
         })
         chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
