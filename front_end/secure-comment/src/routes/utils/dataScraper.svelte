@@ -3,7 +3,16 @@
     import {data} from "../store"
 
     export async function handleExtractHtml() {
-        data.set(await extractHtml());
+        const comments = await extractHtml();
+        if (comments) {
+            data.set(comments)
+            let separatedComments = JSON.stringify(comments).split('<ytd-comment-thread-renderer class=\\"style-scope ytd-item-section-renderer\\">');
+            // let commentsList = {};
+            // separatedComments.forEach((comment) => {
+            //     const userName = comment
+            // })
+            console.log(separatedComments)
+        }
     }
 
 </script>
