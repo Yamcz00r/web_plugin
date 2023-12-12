@@ -1,21 +1,25 @@
-version: '3.7'
+version: '3'
 
 services:
-  backend: 
-    build: ./backend
-    ports: 
-      - 8000:8000
+  postgres:
+    image: postgres:13
+    restart: always
     environment:
-      - POSTGRES_CONNECTION_URL=postgresql+psycopg2://postgres:postgres@0.0.0.0/backend
-  database:
-    image: postgres:15-alpine
-    ports: 
-      - 5432:5432
-    volumes: 
-    - postgres_data:/var/lib/postgresql/data
-volumes:
-  postgres_data:
-    driver: local
+      POSTGRES_DB: backend
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
 
-
-
+  fastapi:
+    build:
+      context: backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    command: "uvicorn main:app --reload --port=8000 --host=0.0.0.0"
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env
