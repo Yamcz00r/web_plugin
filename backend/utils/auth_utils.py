@@ -14,10 +14,8 @@ oauth2schema = OAuth2PasswordBearer(tokenUrl='token')
 jwt_secret = 'da248a94f5caa164afbbf4da48b9c7c3db217a6ff3e1f4fd37a4741ef51ce718'
 
 
-
 def verify_password(password: str, hashed_password: str):
     return hash.bcrypt.verify(password, hashed_password)
-
 
 def authenticate_user(email: str, password: str, db: Session):
     db_user = user_service.get_user_by_email(db, user_email=email)
