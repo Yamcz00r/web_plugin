@@ -84,7 +84,7 @@ def delete_user_endpoint(
     return {"message": f"Successfully, deleted a user {delete_user_id}" }
 
 
-@app.post("/comments/push_comments/")
-def push_comments(comments: CommentArray):
-    pushed_comments = comments.comments
-    return {"message": "Comments pushed successfully"}
+@app.post("/receiving_comments/")
+def receiving_comments(comments: CommentArray):
+    received_comments = comments.comments
+    return {"message": "Comments received successfully"}
