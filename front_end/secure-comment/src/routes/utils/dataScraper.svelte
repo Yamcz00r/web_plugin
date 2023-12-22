@@ -7,7 +7,6 @@
         userName: string,
         comment: string
     }
-
     const regexUser = /<a id="author-text" class="yt-simple-endpoint style-scope ytd-comment-view-model"[^>]*>[\s\S]*?<\/a>/g;
     const regexComment = /<span class="yt-core-attributed-string yt-core-attributed-string--white-space-pre-wrap" dir="auto"[^>]*>[\s\S]*?<\/span>/g;
 
