@@ -136,7 +136,7 @@ backend/.env
 backend/__pycache__
 backend/env
 *.env
-.idea
+*.idea
 front_end/movie-recommendation-engine-app/DS_Store
 front_end/movie-recommendation-engine-app/node_modules
 front_end/movie-recommendation-engine-app/build
