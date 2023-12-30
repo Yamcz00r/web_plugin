@@ -150,3 +150,4 @@ front_end/movie-recommendation-engine-app/vite.config.ts.timestamp-*
 front_end/movie-recommendation-engine-app/.idea
 front_end/movie-recommendation-engine-app/.vscode
 
+*.iml
