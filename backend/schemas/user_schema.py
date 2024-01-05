@@ -13,3 +13,8 @@ class UserCreate(UserBase):
 class User(UserBase):
     model_config = ConfigDict(from_attributes=True)
     id: int
+
+
+class UserResponse(BaseModel):
+    user: User
+    access_token: str

@@ -47,4 +47,4 @@ def get_current_user(db: Session = Depends(get_db), token: str = Depends(oauth2s
 async def create_token(user: user_model.User, secret: str = jwt_secret):
     user_obj = user_schema.User.from_orm(user)
     token = jwt.encode(user_obj.dict(), secret)
-    return dict(access_token=token)
+    return token

@@ -24,8 +24,8 @@ app.add_middleware(
 email_regex = "^[a-z0-9]+[\\._]?[a-z0-9]+[@]\\w+[.]\\w{2,3}$"
 
 
-@app.post("/users/create_user/", response_model=user_schema.User)
-def create_user_endpoint(user_data: user_schema.UserCreate, db: Session = Depends(get_db)):
+@app.post("/users/create_user/", response_model=user_schema.UserResponse)
+async def create_user_endpoint(user_data: user_schema.UserCreate, db: Session = Depends(get_db)):
     existing_user = get_user_by_email(db, user_data.email)
     if existing_user:
         raise HTTPException(
@@ -42,7 +42,10 @@ def create_user_endpoint(user_data: user_schema.UserCreate, db: Session = Depend
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Enter the valid email address"
         )
-    return create_user(db, user_data)
+    user = create_user(db, user_data)
+    user_in_db = auth_utils.authenticate_user(user_data.email, user_data.password, db)
+    token = await auth_utils.create_token(user_in_db)
+    return dict(user=user, access_token=token)
 
 
 @app.get("/users/me", response_model=user_schema.User)
@@ -65,7 +68,8 @@ async def generate_user_token(
 
         )
 
-    return await auth_utils.create_token(user)
+    token = auth_utils.create_token(user)
+    return dict(access_token=token)
 
 
 @app.post("/users/delete_user/{delete_user_id}")
