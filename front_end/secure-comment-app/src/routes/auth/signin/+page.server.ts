@@ -17,12 +17,28 @@ export const load = async (event) => {
 export const actions = {
     default: async (event) => {
         const form = await superValidate(event, newContactSchema)
-        console.log(event, form);
         if (!form.valid) {
             return fail(400, {form})
         }
-        return {
-            form
+        const response = await fetch('http://localhost:8000/token', {
+            method: 'POST',
+            body: new URLSearchParams({
+                grant_type: '',
+                username: form.data.email,
+                password: form.data.password,
+                scope: '',
+                client_id: '',
+                client_secret: ''
+            }),
+            headers: {
+                'accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        });
+        const responseJson = await response.json()
+        console.log(responseJson)
+        if (response.status === 200) {
+            return "account added successfully"
         }
     }
 }

@@ -17,23 +17,18 @@ export const load = async (event) => {
     }
 }
 
-
-
 export const actions = {
     default: async (event) => {
         const form = await superValidate(event, newContactSchema)
         if (!form.valid) {
             return fail(400, {form})
         }
-        const email = form.data.email;
-        const user_name = form.data.userName;
-        const password = form.data.password;
         const response = await fetch('http://localhost:8000/users/create_user/', {
             method: 'POST',
             body: JSON.stringify({
-                email: email,
-                user_name: user_name,
-                password : password
+                email: form.data.email,
+                user_name: form.data.userName,
+                password : form.data.password
             }),
             headers: {
                 'Content-Type': 'application/json'
