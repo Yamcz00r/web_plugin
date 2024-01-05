@@ -10,7 +10,7 @@
     const regexUser = /<a id="author-text" class="yt-simple-endpoint style-scope ytd-comment-view-model"[^>]*>[\s\S]*?<\/a>/g;
     const regexComment = /<span class="yt-core-attributed-string yt-core-attributed-string--white-space-pre-wrap" dir="auto"[^>]*>[\s\S]*?<\/span>/g;
 
-    export async function handleExtractHtml() {
+    async function handleExtractHtml() {
         const comments = await extractHtml();
         if (comments) {
             let separatedComments: string[] = (comments as string).split('<ytd-comment-thread-renderer class="style-scope ytd-item-section-renderer">');
@@ -33,7 +33,16 @@
 
     export async function commentCheck() {
         const commentArray: Comment[] | undefined = await handleExtractHtml()
-        data.set(commentArray);
+        data.set(JSON.stringify(commentArray));
         console.log(commentArray);
+        const response = await fetch('', {
+            method: 'POST',
+            body: JSON.stringify({
+
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
     }
 </script>

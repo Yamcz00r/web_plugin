@@ -15,9 +15,6 @@
         <label for="email" class="label py-3 justify-self-center"> User Name </label>
         <input class="input" id="userName" name="userName" type="text" placeholder="Jeff"
                autocomplete="email" bind:value={$form.userName}/>
-        <label for="email" class="label py-3 justify-self-center"> Repeat User Name </label>
-        <input class="input" id="repeatUserName" name="repeatUserName" type="text" placeholder="Jeff"
-               autocomplete="email" bind:value={$form.repeatUserName}/>
         <label for="email" class="label py-3 justify-self-center"> Email </label>
         <input class="input" id="email" name="email" type="email" placeholder="john@example.com"
                autocomplete="email" bind:value={$form.email}/>

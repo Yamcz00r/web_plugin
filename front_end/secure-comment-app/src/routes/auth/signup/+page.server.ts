@@ -4,11 +4,17 @@ import {fail} from "@sveltejs/kit"
 
 const newContactSchema = z.object({
     userName: z.string().min(1),
-    repeatUserName: z.string().min(1),
     email: z.string().email(),
     password: z.string().min(8),
     repeatPassword: z.string().min(8)
-})
+}).superRefine(({repeatPassword, password}, ctx) => {
+    if (repeatPassword !== password) {
+        ctx.addIssue({
+            code: "custom",
+            message: "The passwords did not match"
+        });
+    }
+});
 
 export const load = async (event) => {
     const form = await superValidate(event, newContactSchema)
@@ -28,12 +34,14 @@ export const actions = {
             body: JSON.stringify({
                 email: form.data.email,
                 user_name: form.data.userName,
-                password : form.data.password
+                password: form.data.password
             }),
             headers: {
                 'Content-Type': 'application/json'
             }
         });
+        const responseJson = await response.json()
+        console.log(responseJson)
         if (response.status === 200) {
             return "account added successfully"
         }
