@@ -87,4 +87,4 @@ def delete_user_endpoint(
 @app.post("/receiving_comments/")
 def receiving_comments(comments: CommentArray):
     received_comments = comments.comments
-    return {"message": "Comments received successfully"}
+    return received_comments[0].comment
