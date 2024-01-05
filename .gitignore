@@ -1,5 +1,4 @@
 backend/env/
-backend/__pycache/
 backend/*.idea
 backend/.env
 backend/*.iml
