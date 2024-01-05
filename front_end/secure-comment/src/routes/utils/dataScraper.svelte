@@ -2,7 +2,7 @@
     import {extractHtml} from "./dataExtractor";
     import {data} from "../store"
 
-    type Commeent = {
+    type Comment = {
         id: number,
         userName: string,
         comment: string
@@ -14,15 +14,26 @@
         const comments = await extractHtml();
         if (comments) {
             let separatedComments: string[] = (comments as string).split('<ytd-comment-thread-renderer class="style-scope ytd-item-section-renderer">');
-            let commentsList: Commeent[] = [];
+            let commentsList: Comment[] = [];
+
             separatedComments.forEach((comment) => {
+                const dirtyUser: RegExpMatchArray | null = comment.match(regexUser)
+                const dirtyCommentElement: RegExpMatchArray | null = comment.match(regexComment)
                 const id: number = commentsList.length
-                const user: RegExpMatchArray | null = comment.match(regexUser)
-                const commentElement: RegExpMatchArray | null = comment.match(regexComment);
+                const user: RegExpMatchArray | null = JSON.stringify(dirtyUser).match(/@([^<\\]+)/)
+                const commentElement: RegExpMatchArray | null = JSON.stringify(dirtyCommentElement).match(/>[\s\S]*?</)
                 if (user && commentElement) {
                     commentsList.push({id: id, userName: user[0], comment: commentElement[0]});
                 }
             })
+            return commentsList;
         }
+        return undefined;
+    }
+
+    export async function commentCheck() {
+        const commentArray: Comment[] | undefined = await handleExtractHtml()
+        data.set(commentArray);
+        console.log(commentArray);
     }
 </script>
