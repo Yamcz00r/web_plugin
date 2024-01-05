@@ -32,7 +32,7 @@
     <svelte:fragment slot="trail">
         {#if $page.url.pathname === "/"  }
         <a href="/auth/signin" type="button" class="btn variant-ghost w-24 lg:w-1/3">Sign In</a>
-        {:else if $page.url.pathname === "/auth/login" || $page.url.pathname === "/auth/signin"}
+        {:else if $page.url.pathname !== "/"}
             <a href="/" type="button" class="btn variant-ghost w-24 lg:w-1/3">Home</a>
         {/if}
     </svelte:fragment>

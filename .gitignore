@@ -2,8 +2,9 @@ backend/env/
 backend/__pycache/
 backend/*.idea
 backend/.env
-
-
+backend/*.iml
+backend/*.pyc
+backend/*/__pycache__
 
 front_end/movie-recommendation-engine-app/DS_Store
 front_end/movie-recommendation-engine-app/node_modules
@@ -18,5 +19,3 @@ front_end/movie-recommendation-engine-app/vite.config.ts.timestamp-*
 front_end/movie-recommendation-engine-app/.idea
 front_end/movie-recommendation-engine-app/.vscode
 
-*.iml
-*.pyc
