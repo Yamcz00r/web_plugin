@@ -12,11 +12,13 @@ from schemas.comment_schema import Comments
 
 app = FastAPI()
 
+
 origins = ["*"]
+
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -91,4 +93,4 @@ def delete_user_endpoint(
 @app.post("/comments")
 def receiving_comments(comments: Comments):
     received_comments = comments.comments
-
+    return { "message": "Succesfuylly recived" }
