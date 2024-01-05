@@ -8,6 +8,7 @@ import re
 from fastapi.middleware.cors import CORSMiddleware
 import utils.auth_utils as auth_utils
 from typing import Annotated
+from schemas.comment_schema import CommentArray
 
 app = FastAPI()
 
@@ -87,3 +88,7 @@ def delete_user_endpoint(
     return {"message": f"Successfully, deleted a user {delete_user_id}" }
 
 
+@app.post("/receiving_comments/")
+def receiving_comments(comments: CommentArray):
+    received_comments = comments.comments
+    return received_comments[0].comment
