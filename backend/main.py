@@ -87,3 +87,4 @@ def delete_user_endpoint(
 @app.post("/comments")
 def receiving_comments(comments: Comments):
     received_comments = comments.comments
+
