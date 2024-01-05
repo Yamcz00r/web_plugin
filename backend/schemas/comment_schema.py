@@ -1,10 +1,12 @@
 from typing import List
 from pydantic import BaseModel
 
-class CommentItem(BaseModel):
-    Id: int
-    Comment: List[str]
-    Username: List[str]
 
-class CommentArray(BaseModel):
+class CommentItem(BaseModel):
+    id: int
+    userName: str
+    comment: str
+
+
+class Comments(BaseModel):
     comments: List[CommentItem]
