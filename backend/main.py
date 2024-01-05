@@ -12,6 +12,7 @@ from schemas.comment_schema import Comments
 
 app = FastAPI()
 
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
