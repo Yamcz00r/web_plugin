@@ -35,14 +35,18 @@
         const commentArray: Comment[] | undefined = await handleExtractHtml()
         data.set(JSON.stringify(commentArray));
         console.log(commentArray);
-        const response = await fetch('', {
-            method: 'POST',
-            body: JSON.stringify({
-
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+        if (commentArray && commentArray.length > 0) {
+            const response = await fetch('http://localhost:8000/comments', {
+                method: 'POST',
+                body: JSON.stringify({
+                    "comments": commentArray
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const responseJson = await response.json()
+            console.log(responseJson)
+        }
     }
 </script>
