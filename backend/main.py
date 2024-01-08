@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import utils.auth_utils as auth_utils
 from typing import Annotated
 from schemas.comment_schema import Comments
-from services.comment_service import send_comment_to_ollama
+from services.comment_service import generate_llama_response
 
 app = FastAPI()
 
@@ -88,19 +88,15 @@ def delete_user_endpoint(
     delete_user(db=db, user_id=delete_user_id)
     return {"message": f"Successfully, deleted a user {delete_user_id}" }
 
-
 @app.post("/comments")
 def receiving_comments(comments: Comments):
-    received_comments = comments.comments
     results = []
-
-    for comment_text in received_comments:
-        result = send_comment_to_ollama(comment_text)
-        results.append(result)
+    for comment_data in comments.comments:
+        result = generate_llama_response(comment_data.comment)
+        if result is not None:
+            print(result)
+            results.append(result)
+        else:
+            print("Błąd w generowaniu odpowiedzi z OllaMa.")
 
     return {"results": results}
-
-    
-
-
-
