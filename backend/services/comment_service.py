@@ -1,7 +1,7 @@
 import requests
 
-def generate_llama_response(comment):
-    ollama_url = 'http://localhost:11434/api/generate'
+def generate_llama_response(comment: str):
+    ollama_url = 'http://localhost:11434/api/generate' 
     data = {
         "model": "llama2",
         "prompt": comment,
@@ -10,7 +10,7 @@ def generate_llama_response(comment):
 
     try:
         response = requests.post(ollama_url, json=data)
-        response.raise_for_status()  # Rzuć błąd, jeśli status HTTP nie jest 2xx
+        response.raise_for_status()
         result = response.json()
         return result
     except requests.exceptions.RequestException as e:

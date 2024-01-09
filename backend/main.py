@@ -89,14 +89,5 @@ def delete_user_endpoint(
     return {"message": f"Successfully, deleted a user {delete_user_id}" }
 
 @app.post("/comments")
-def receiving_comments(comments: Comments):
-    results = []
-    for comment_data in comments.comments:
-        result = generate_llama_response(comment_data.comment)
-        if result is not None:
-            print(result)
-            results.append(result)
-        else:
-            print("Błąd w generowaniu odpowiedzi z OllaMa.")
-
-    return {"results": results}
+def receiving_comments():
+    generate_llama_response("hello")
