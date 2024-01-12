@@ -9,6 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import utils.auth_utils as auth_utils
 from typing import Annotated
 from schemas.comment_schema import Comments
+from services.comment_service import generate_llama_response
 
 app = FastAPI()
 
@@ -22,6 +23,7 @@ app.add_middleware(
 )
 
 email_regex = "^[a-z0-9]+[\\._]?[a-z0-9]+[@]\\w+[.]\\w{2,3}$"
+
 
 
 @app.post("/users/create_user/", response_model=user_schema.UserResponse)
@@ -86,8 +88,6 @@ def delete_user_endpoint(
     delete_user(db=db, user_id=delete_user_id)
     return {"message": f"Successfully, deleted a user {delete_user_id}" }
 
-
 @app.post("/comments")
-def receiving_comments(comments: Comments):
-    received_comments = comments.comments
-    return { "message": "Succesfuylly recived" }
+def receiving_comments():
+    generate_llama_response("hello")

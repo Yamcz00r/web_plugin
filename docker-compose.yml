@@ -18,8 +18,14 @@ services:
       - "8000:8000"
     depends_on:
       - postgres
+      - ollama
     command: "uvicorn main:app --reload --port=8000 --host=0.0.0.0"
     volumes:
       - ./backend:/app
     env_file:
       - .env
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
