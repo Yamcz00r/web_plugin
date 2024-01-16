@@ -8,8 +8,8 @@ import re
 from fastapi.middleware.cors import CORSMiddleware
 import utils.auth_utils as auth_utils
 from typing import Annotated
-from schemas.comment_schema import Comments
-from services.comment_service import generate_llama_response
+from schemas.comment_schema import CommentItem, Comments
+from services.comment_service import generate_llama_response, toxic_classify
 
 app = FastAPI()
 
@@ -87,6 +87,11 @@ def delete_user_endpoint(
         )
     delete_user(db=db, user_id=delete_user_id)
     return {"message": f"Successfully, deleted a user {delete_user_id}" }
+
+@app.post("/comments/verify")
+def verify(comment: CommentItem):
+    toxic_classify(comment)
+
 
 @app.post("/comments")
 def receiving_comments():

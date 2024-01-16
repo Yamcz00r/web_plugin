@@ -4,6 +4,7 @@ backend/.env
 backend/*.iml
 backend/*.pyc
 backend/*/__pycache__
+backend/__pycache__
 .idea
 .env
 front_end/movie-recommendation-engine-app/DS_Store

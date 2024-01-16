@@ -10,3 +10,8 @@ class CommentItem(BaseModel):
 
 class Comments(BaseModel):
     comments: List[CommentItem]
+
+
+class ResponseModel(BaseModel):
+    id: int
+    is_toxic: bool
