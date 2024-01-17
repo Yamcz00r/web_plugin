@@ -10,7 +10,7 @@ import utils.auth_utils as auth_utils
 from typing import Annotated
 from schemas.comment_schema import CommentItem, Comments
 from services.comment_service import generate_llama_response, toxic_classify
-
+import json
 app = FastAPI()
 
 
@@ -90,7 +90,8 @@ def delete_user_endpoint(
 
 @app.post("/comments/verify")
 def verify(comment: CommentItem):
-    toxic_classify(comment)
+    verified = toxic_classify(comment)
+    return json.loads(verified)
 
 
 @app.post("/comments")
