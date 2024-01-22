@@ -89,9 +89,9 @@ def delete_user_endpoint(
     return {"message": f"Successfully, deleted a user {delete_user_id}" }
 
 @app.post("/comments/verify")
-def verify(comment: CommentItem):
-    verified = toxic_classify(comment)
-    return json.loads(verified)
+def verify(comments: Comments):
+    json_comments = comments.model_dump_json()
+    print(json_comments)
 
 
 @app.post("/comments")
