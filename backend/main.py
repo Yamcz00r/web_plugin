@@ -91,9 +91,11 @@ def delete_user_endpoint(
 @app.post("/comments/verify")
 def verify(comments: Comments):
     json_comments = comments.model_dump_json()
-    print(json_comments)
+    data = toxic_classify(json_comments)
+    return json.loads(data)
 
 
-@app.post("/comments")
-def receiving_comments():
-    generate_llama_response("hello")
+
+# @app.post("/comments")
+# def receiving_comments():
+#     generate_llama_response("hello")
