@@ -38,7 +38,6 @@ export const actions = {
         });
         const responseJson = await response.json()
         if (response.status == 200 && responseJson.access_token) {
-            console.log(responseJson)
             token.update(() => responseJson.access_token)
             throw redirect(302, '/')
         }

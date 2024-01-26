@@ -44,7 +44,6 @@ export const actions = {
         const responseJson = await response.json()
         console.log(responseJson && responseJson.access_token)
         if (response.status === 200) {
-            console.log(responseJson)
             token.update(() =>responseJson.access_token)
             throw redirect(302, '/')
         }
