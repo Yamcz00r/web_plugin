@@ -1,6 +1,7 @@
 import {superValidate} from "sveltekit-superforms/server";
 import {z} from "zod";
-import {fail} from "@sveltejs/kit"
+import {fail, redirect} from "@sveltejs/kit"
+import {token} from "../../store.js";
 
 const newContactSchema = z.object({
     userName: z.string().min(1),
@@ -41,9 +42,11 @@ export const actions = {
             }
         });
         const responseJson = await response.json()
-        console.log(responseJson)
+        console.log(responseJson && responseJson.access_token)
         if (response.status === 200) {
-            return "account added successfully"
+            console.log(responseJson)
+            token.update(() =>responseJson.access_token)
+            throw redirect(302, '/')
         }
     }
 }
