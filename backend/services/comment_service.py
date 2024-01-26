@@ -7,7 +7,7 @@ ollama_url = 'http://ollama:11434/api/generate'
 
 def toxic_classify(comments):
     data = {
-        "model": "llama2-toxic",
+        "model": "hermes-toxic",
         "prompt": comments,
         "format": "json",
         "stream": False
