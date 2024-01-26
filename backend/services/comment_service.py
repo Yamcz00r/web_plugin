@@ -1,9 +1,37 @@
 import requests
+import json
+from schemas.comment_schema import CommentItem
 
-def generate_llama_response(comment: str):
-    ollama_url = 'http://localhost:11434/api/generate' 
+ollama_url = 'http://ollama:11434/api/generate'
+
+
+def toxic_classify(comments):
     data = {
-        "model": "llama2",
+        "model": "hermes-toxic",
+        "prompt": comments,
+        "format": "json",
+        "stream": False
+    }
+
+    try:
+        response = requests.post(ollama_url, json=data)
+        response.raise_for_status()
+        result = response.json()
+
+        return result['response']
+    except requests.exceptions.HTTPError as http_err:
+        print(f"HTTP error occurred: {http_err}")
+    except requests.exceptions.RequestException as req_err:
+        print(req_err)
+
+
+#TODO TRANSFORM DATA TO EASILY PARSE ARRAY OF JSON
+
+
+def generate_llama_response(comment: CommentItem):
+
+    data = {
+        "model": "llama2-toxic",
         "prompt": comment,
         "stream": False
     }

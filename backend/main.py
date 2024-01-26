@@ -2,14 +2,17 @@ from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from utils.database_utils import get_db
+
 from services.user_service import create_user, get_user_by_email, delete_user
 import schemas.user_schema as user_schema
 import re
 from fastapi.middleware.cors import CORSMiddleware
 import utils.auth_utils as auth_utils
 from typing import Annotated
-from schemas.comment_schema import Comments
-from services.comment_service import generate_llama_response
+from schemas.comment_schema import CommentItem, Comments
+from services.comment_service import generate_llama_response, toxic_classify
+import json
+import jwt
 
 app = FastAPI()
 
@@ -88,6 +91,20 @@ def delete_user_endpoint(
     delete_user(db=db, user_id=delete_user_id)
     return {"message": f"Successfully, deleted a user {delete_user_id}" }
 
-@app.post("/comments")
-def receiving_comments():
-    generate_llama_response("hello")
+@app.post("/comments/verify")
+def verify(comments: Comments, active_user: user_schema.User = Depends(auth_utils.get_current_user)):
+
+    if active_user == None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="You must be logged in"
+        )
+    json_comments = comments.model_dump_json()
+    data = toxic_classify(json_comments)
+    return json.loads(data)
+
+
+
+# @app.post("/comments")
+# def receiving_comments():
+#     generate_llama_response("hello")
