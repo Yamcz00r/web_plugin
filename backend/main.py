@@ -70,7 +70,7 @@ async def generate_user_token(
 
         )
 
-    token = auth_utils.create_token(user)
+    token = await auth_utils.create_token(user)
     return dict(access_token=token)
 
 
