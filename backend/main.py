@@ -10,7 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import utils.auth_utils as auth_utils
 from typing import Annotated
 from schemas.comment_schema import CommentItem, Comments
-from services.comment_service import generate_llama_response, toxic_classify
+from services.comment_service import toxic_classify
 import json
 import jwt
 
@@ -103,8 +103,3 @@ def verify(comments: Comments, active_user: user_schema.User = Depends(auth_util
     data = toxic_classify(json_comments)
     return json.loads(data)
 
-
-
-# @app.post("/comments")
-# def receiving_comments():
-#     generate_llama_response("hello")
