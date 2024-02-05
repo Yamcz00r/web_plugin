@@ -9,7 +9,17 @@
   },
   "permissions": [
     "activeTab",
+    "storage",
     "nativeMessaging",
-    "scripting"
+    "scripting",
+    "cookies",
+    "http://localhost:5173/"
+  ],
+  "optional_permissions": [
+    "unlimitedStorage"
+  ],
+  "host_permissions": [
+    "*://*/"
   ]
 }
+
