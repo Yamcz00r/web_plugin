@@ -1,7 +1,8 @@
-<script>
-    import {token} from "./store.js";
+<script lang="ts">
+
 </script>
 
 <div>
-    {$token}
+
 </div>
+

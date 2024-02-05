@@ -1,7 +1,7 @@
 import {superValidate} from "sveltekit-superforms/server";
 import {z} from "zod";
-import {fail} from "@sveltejs/kit"
-import {token} from "../../store";
+import {fail, redirect} from "@sveltejs/kit"
+import {token} from "../../store.js";
 
 const newContactSchema = z.object({
     email: z.string().email(),
@@ -37,9 +37,9 @@ export const actions = {
             }
         });
         const responseJson = await response.json()
-        if (response.status == 200) {
-            token.set(responseJson)
-            return "success"
+        if (response.status == 200 && responseJson.access_token) {
+            token.update(() => responseJson.access_token)
+            throw redirect(302, '/')
         }
     }
 }

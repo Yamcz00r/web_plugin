@@ -1,2 +1,3 @@
-import {writable} from 'svelte/store';
-export const token = writable()
+import { writable } from 'svelte/store';
+
+export const token = writable( '');
